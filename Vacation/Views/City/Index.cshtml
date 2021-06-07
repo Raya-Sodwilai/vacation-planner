@@ -1,0 +1,70 @@
+@model Vacation.ViewModels.CityViewModel
+@{
+  ViewData [ "Title" ] = "Search";
+
+}
+
+<h1>Where is your destination?</h1>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>jQuery UI Datepicker - Default functionality</title>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<form asp-controller="City" asp-action="AddCity" id="address" method="post">
+
+
+
+    <div class="form-group">
+
+      <input id="address" class=" form-control" asp-for="Name" placeholder="Search for a city" autofocus required />
+
+      <span asp-validation-for="Name"></span>
+
+      <select name="Type" asp-for="Type" required>
+        <option id ="0" value="new-york">New York</option>
+        <option id="1" value="portland">Portland</option>
+        <option id="2" value="san-diego">San Diego</option>
+        <option id="3" value="seattle">Seattle</option>
+        <option id="4" value="denver">Denver</option>
+        <option id="5" value="atlanta">Atlanta</option>
+        <option id="6" value="miami">Miami</option>
+        <option id="7" value="dallas">Dallas</option>
+        <option id="8" value="nashville">Nashville</option>
+        <option id="9" value="phoenix">Phoenix</option>
+        <option id="10" value="las-vegas">Las Vegas</option>
+        <option id="11" value="san-antonio">San Antonio</option>
+        <option id="12" value="salt-lake-city">Salt Lake City</option>
+        <option id="13" value="baltimore">Baltimore</option>
+        <option id="14" value="honolulu">Honolulu</option>
+        <option id="15" value="virginia">Virginia</option>
+        <option id="16" value="oklahoma">Oklahoma</option>
+        <option id="17" value="charlotte">Charlotte</option>
+        <option id="18" value="raleigh">Raleigh</option>
+        <option id="19" value="pittsburgh">Pittsburgh</option>
+        <option id="20" value="tampa">Tampa/option>
+
+      </select>
+
+
+      <input type="date" id="date0" asp-for="StartDate" name="StartDate" placeholder="Choose a start date" />
+      <input type="date" id="date1" asp-for="EndDate" name="EndDate" placeholder="Choose an end date" />
+
+    </div>
+    <button type="submit" class="btn btn-primary" value="Encode" onclick="codeAddress()">Search</button>
+
+
+</form>
+<script>
+  Date.prototype.toDateInputValue = (function () {
+    var local = new Date(this);
+    local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+    return local.toJSON().slice(0, 10);
+  });
+  $(document).ready(function () {
+    $('#date0').val(new Date().toDateInputValue());
+    $('#date1').val(new Date().toDateInputValue());
+  });
+</script>
