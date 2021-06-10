@@ -1,11 +1,10 @@
 ﻿{
-  "$schema": "http://json.schemastore.org/launchsettings.json",
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:2724",
-      "sslPort": 44324
+      "applicationUrl": "http://localhost:6436",
+      "sslPort": 44316
     }
   },
   "profiles": {
@@ -16,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Vacation": {
+    "BookList": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": true,

@@ -10,7 +10,7 @@ namespace Vacation.Controllers
 {
   public class CityController : Controller
   {
-    private readonly VacationContext _db;
+    private readonly ApplicationDbContext _db;
     [BindProperty]
     public City City { get; set; }
     public CityController(ApplicationDbContext db)
@@ -30,7 +30,7 @@ namespace Vacation.Controllers
         return View(City);
       }
 
-      City = _dbCities.FirstOrDefault(uint => uint.Id == id);
+      City = _db.City.FirstOrDefault(u => u.Id == id);
       if (City == null)
       {
         return NotFound();
@@ -45,13 +45,13 @@ namespace Vacation.Controllers
     {
       if (ModelState.IsValid)
       {
-        if (City.ID == 0)
+        if (City.Id == 0)
         {
-          _db.Cities.Add(City);
+          _db.City.Add(City);
         }
         else
         {
-          _db.Cities.Update(Book);
+          _db.City.Update(City);
         }
         _db.SaveChanges();
         return RedirectToAction("Index");
@@ -62,18 +62,18 @@ namespace Vacation.Controllers
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-      return Json(new { data = await _db.Cities.ToListAsync() });
+      return Json(new { data = await _db.City.ToListAsync() });
     }
 
     [HttpDelete]
     public async Task<IActionResult> Delete(int id)
     {
-      var cityFromDb = await _db.Cities.FirstOrDefaultAsync(u => u.Id == id);
+      var cityFromDb = await _db.City.FirstOrDefaultAsync(u => u.Id == id);
       if (cityFromDb == null)
       {
         return Json(new { success = false, message = "Error while Deleting" });
       }
-      _db.Cities.Remove(cityFromDb);
+      _db.City.Remove(cityFromDb);
       await _db.SaveChangesAsync();
       return Json(new { success = true, message = "Delete successful" });
     }

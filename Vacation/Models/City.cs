@@ -8,14 +8,12 @@ namespace Vacation.Models
 {
   public class City
   {
-    public int ID { get; set; }
-    [StringLength(450)]
+    [Key]
+    public int Id { get; set; }
+    [Required]
     public string Name { get; set; }
-    public string Type { get; set; }
-    public DateTime StartDate { get; set; }
+    public DateTime Startdate { get; set; }
     public DateTime EndDate { get; set; }
 
-    public IList<Event> Events { get; set; }
-    public City() { }
   }
 }
