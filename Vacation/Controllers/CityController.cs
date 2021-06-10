@@ -1,75 +1,81 @@
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Mvc;
-using Vacation.Models;
-using Vacation.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
-using System.Security.Claims;
+using Vacation.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Vacation.Controllers
 {
-  [Authorize]
   public class CityController : Controller
   {
     private readonly VacationContext _db;
-    private readonly UserManager<ApplicationUser> _userManager;
-
-    public CityController(UserManager<ApplicationUser> userManager, VacationContext db)
+    [BindProperty]
+    public City City { get; set; }
+    public CityController(ApplicationDbContext db)
     {
-      _userManager = userManager;
       _db = db;
     }
     public IActionResult Index()
     {
-      var cityDatesViewModel = new CityViewModel();
-      return View( cityDatesViewModel );
+      return View();
     }
 
-    [HttpPost]
-    public IActionResult AddCity( City CityName )
+    public IActionResult Upsert(int? id)
     {
-      if (!ModelState.IsValid) return View();
+      City = new City();
+      if (id == null)
+      {
+        return View(City);
+      }
 
-      var city = CityName.Name;
+      City = _dbCities.FirstOrDefault(uint => uint.Id == id);
+      if (City == null)
+      {
+        return NotFound();
+      }
+      return View(City);
 
-      _db.City.Add( CityName );
-      _db.SaveChanges();
-
-            
-      return RedirectToAction("Result", new {CityName.Name,CityName.Type});
-
+    }
+        
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Upsert()
+    {
+      if (ModelState.IsValid)
+      {
+        if (City.ID == 0)
+        {
+          _db.Cities.Add(City);
+        }
+        else
+        {
+          _db.Cities.Update(Book);
+        }
+        _db.SaveChanges();
+        return RedirectToAction("Index");
+      }
+      return View(City);
     }
 
     [HttpGet]
-    public IActionResult Result(CityViewModel results)
+    public async Task<IActionResult> GetAll()
     {
-    return View(results);
+      return Json(new { data = await _db.Cities.ToListAsync() });
     }
 
-    public IActionResult ViewCities()
+    [HttpDelete]
+    public async Task<IActionResult> Delete(int id)
     {
-      IList<City> cities = _db.City.Include( c => c.Name ).ToList();
-
-      return View( cities );
-    }
-
-        
-    [HttpPost]
-    public IActionResult RemoveCities(int [] cityIds)
-    {
-      foreach (int cityId in cityIds)
+      var cityFromDb = await _db.Cities.FirstOrDefaultAsync(u => u.Id == id);
+      if (cityFromDb == null)
       {
-        var theCity = _db.City.Single(c => c.ID == cityId);
-        _db.City.Remove(theCity);
+        return Json(new { success = false, message = "Error while Deleting" });
       }
-
-      _db.SaveChanges();
-
-      return RedirectToAction("ViewCities");
+      _db.Cities.Remove(cityFromDb);
+      await _db.SaveChangesAsync();
+      return Json(new { success = true, message = "Delete successful" });
     }
   }
 }
