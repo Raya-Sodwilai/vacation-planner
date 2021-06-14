@@ -1,7 +1,7 @@
 @model Vacation.Models.City
 
 <br />
-<h2 class="text-info">@(Model.Id!=0 ? "Edit" : "Create") City</h2>
+<h2 class="text-info">@(Model.Id!=0 ? "Edit" : "Add") Vacation</h2>
 <br />
 
 <div class="border container" style="padding:30px;">
@@ -13,7 +13,7 @@
     <div class="text-danger" asp-validation-summary="ModelOnly"></div>
     <div class="form-group row">
       <div class="col-3">
-        <label asp-for="Name"></label>
+        <label asp-for="Name">City</label>
       </div>
       <div class="col-6">
         <input asp-for="Name" class="form-control" />
@@ -22,7 +22,7 @@
     </div>
     <div class="form-group row">
       <div class="col-3">
-        <label asp-for="StartDate"></label>
+        <label asp-for="StartDate">Start Date</label>
       </div>
       <div class="col-6">
         <input asp-for="StartDate" class="form-control" />
@@ -31,11 +31,20 @@
     </div>
     <div class="form-group row">
       <div class="col-3">
-        <label asp-for="EndDate"></label>
+        <label asp-for="EndDate">End Date</label>
       </div>
       <div class="col-6">
         <input asp-for="EndDate" class="form-control" />
         <span asp-validation-for="EndDate" class="text-danger"></span>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-3">
+        <label asp-for="Num">Guests</label>
+      </div>
+      <div class="col-6">
+        <input asp-for="Num" class="form-control" />
+        <span asp-validation-for="Num" class="text-danger"></span>
       </div>
     </div>
     <div class="form-group row">
