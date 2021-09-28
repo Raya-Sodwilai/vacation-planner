@@ -1,31 +1,32 @@
-# (Application Name)
+# _Vacation Planner_
 
-#### (Brief Description of Application)
+#### _This is a vacation planner where users can plan the future destinations that includes location, date and time of vacation._
 
-#### By (Your Name Here)
+#### By _**Raya Sodwilai**_
 
 ## Technologies Used
 
-* _List all_
-* _the major technologies_
-* _you used in your project_
-* _here_
+* C#
+* HTML
+* JavaScript
+* CSS
 
 ## Description
 
-## Setup/Installation Requirements
+_This browser was created for users to be able to plan their vacations._
 
-* _This is a great place_
-* _to list setup instructions_
-* _in a simple_
-* _easy-to-understand_
-* _format_
+## Setup/Installation Requirements
 
 ## Known Bugs
 
-* _Any known issues_
-* _should go here_
+* N/A
 
 ## License
 
+_MIT_
+
+_Copyright (c) 2021 Raya Sodwilai_
+
 ## Contact Information
+
+_sodwilai@pdx.edu_
