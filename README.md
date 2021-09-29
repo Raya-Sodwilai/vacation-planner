@@ -14,7 +14,7 @@
 
 ## Description
 
-_This application allows users to create/plan their future vacations that includes city, number of guest, date and time. Users are also able to add and delete the vacations list. _
+_This application allows users to create/plan their future vacations that includes city, number of guest, date and time. Users are also able to add and delete the vacations list._
 
 ## Pre-requisites
 
