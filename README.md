@@ -44,7 +44,7 @@ _This application allows users to create/plan their future vacations that includ
 
 ## License
 
-_MIT Copyright (c) 2021 Raya Sodwilai_
+_MIT &copy; 2021 Raya Sodwilai_
 
 ## Contact Information
 
